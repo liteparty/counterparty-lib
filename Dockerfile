@@ -10,6 +10,9 @@ RUN python3 setup.py develop
 RUN python3 setup.py install_apsw
 RUN python3 setup.py install_serpent
 
+#fix python-bitcoinlib version
+RUN rm -rf /usr/local/lib/python3.5/dist-packages/bitcoin /usr/local/lib/python3.5/dist-packages/python_bitcoinlib-*.dist-info
+RUN pip3 install --upgrade git+https://github.com/CounterpartyXCP/python-bitcoinlib.git@112d66b11cde30b9c7e10895f057baab13cc35ec#egg=python-bitcoinlib-0.7.0
 # Install counterparty-cli
 # NOTE: By default, check out the counterparty-cli master branch. You can override the BRANCH build arg for a different
 # branch (as you should check out the same branch as what you have with counterparty-lib, or a compatible one)
@@ -23,6 +26,7 @@ RUN python3 setup.py develop
 
 # Additional setup
 COPY docker/server.conf /root/.config/liteparty/server.conf
+COPY docker/server.conf /root/.config/counterparty/server.conf
 COPY docker/start.sh /usr/local/bin/start.sh
 RUN chmod a+x /usr/local/bin/start.sh
 WORKDIR /
