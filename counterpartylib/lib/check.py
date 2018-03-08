@@ -119,10 +119,10 @@ def consensus_hash(db, field, previous_consensus_hash, content):
         # Save new hash.
         cursor.execute('''UPDATE blocks SET {} = ? WHERE block_index = ?'''.format(field), (calculated_hash, block_index))
 
-    # Check against checkpoints.
-    checkpoints = CHECKPOINTS_TESTNET if config.TESTNET else CHECKPOINTS_MAINNET
-    if field != 'messages_hash' and block_index in checkpoints and checkpoints[block_index][field] != calculated_hash:
-        raise ConsensusError('Incorrect {} for block {}.'.format(field, block_index))
+    # Check against checkpoints. //disabled for now.
+    #checkpoints = CHECKPOINTS_TESTNET if config.TESTNET else CHECKPOINTS_MAINNET
+    #if field != 'messages_hash' and block_index in checkpoints and checkpoints[block_index][field] != calculated_hash:
+    #    raise ConsensusError('Incorrect {} for block {}.'.format(field, block_index))
 
     return calculated_hash, found_hash
 
