@@ -117,15 +117,15 @@ def sort_unspent_txouts(unspent, unconfirmed=False):
     return unspent
 
 def get_btc_supply(normalize=False):
-    """returns the total supply of {} (based on what Bitcoin Core says the current block height is)""".format(config.BTC)
+    """returns the total supply of {} (based on what Bitcoin/Litecoin says the current block height is)""".format(config.BTC)
     block_count = getblockcount()
     blocks_remaining = block_count
     total_supply = 0
     reward = 50.0
     while blocks_remaining > 0:
-        if blocks_remaining >= 210000:
-            blocks_remaining -= 210000
-            total_supply += 210000 * reward
+        if blocks_remaining >= config.BTC_HALFTIME:
+            blocks_remaining -= config.BTC_HALFTIME
+            total_supply += config.BTC_HALFTIME * reward
             reward /= 2
         else:
             total_supply += (blocks_remaining * reward)
