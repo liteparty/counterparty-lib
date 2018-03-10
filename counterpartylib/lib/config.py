@@ -34,6 +34,8 @@ OP_RETURN_MAX_SIZE = 80  # bytes
 BTC = 'LTC'
 XCP = 'XLP'
 
+BTC_HALFTIME = 840000
+
 BTC_NAME = 'Litecoin'
 XCP_NAME = 'Liteparty'
 APP_NAME = XCP_NAME.lower()
